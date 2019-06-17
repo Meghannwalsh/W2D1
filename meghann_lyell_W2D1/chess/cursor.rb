@@ -76,8 +76,20 @@ class Cursor
   end
 
   def handle_key(key)
+    case KEYMAP[key]
+    when :return, :space
+      @cursor_pos
+    when MOVES.include?(KEYMAP[key])
+      update_pos(MOVES[KEYMAP[key]])
+      return nil
+    when :ctrl_c
+      Process.exit(0)
+    end
   end
 
   def update_pos(diff)
+    raise InvalidMoveError if !@board.valid_move?(diff)
+    @cursor_pos[0] += diff[0]
+    @cursor_pos[1] += diff[1]
   end
 end

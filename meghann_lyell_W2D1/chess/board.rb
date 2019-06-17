@@ -26,7 +26,7 @@ class Board
     raise InvalidMoveError if !valid_move?(end_pos)
     self[start_pos], self[end_pos] = self[end_pos], self[start_pos]
   end 
-
+ #----
   def []=(pos, piece)
     row, col = pos
     board[row][col] = piece
